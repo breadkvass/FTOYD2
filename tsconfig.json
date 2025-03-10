@@ -3,11 +3,16 @@
   "display": "Expo",
   "compilerOptions": {
     "forceConsistentCasingInFileNames": true,
-    "types": ["./global.d.ts",    "@types/styled-components-react-native" ],
+    "types": [
+      "@types/styled-components-react-native"
+    ],
     "allowJs": true,
     "esModuleInterop": true,
     "jsx": "react-native",
-    "lib": ["DOM", "ESNext"],
+    "lib": [
+      "DOM",
+      "ESNext"
+    ],
     "moduleResolution": "node",
     "noImplicitThis": false,
     "noEmit": true,
@@ -16,7 +21,9 @@
     "target": "ESNext",
     "baseUrl": ".",
     "paths": {
-      "src/*": ["src/*"]
+      "src/*": [
+        "src/*"
+      ]
     },
     "strict": true
   },
