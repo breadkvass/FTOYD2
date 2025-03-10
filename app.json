@@ -29,7 +29,7 @@
       "package": "com.haytherecharlie.exporoutertypescript"
     },
     "web": {
-      "favicon": "./src/assets/images/app-icon.png",
+      "favicon": "./src/assets/images/favicon.png",
       "output": "static",
       "bundler": "metro"
     },
