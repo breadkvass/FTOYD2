@@ -1,4 +1,4 @@
-import { FC, useEffect, useState } from 'react';
+import { FC, useEffect, useState, memo } from 'react';
 import { View, StyleSheet, Text, StyleProp, TextStyle } from 'react-native';
 import { Match } from '../../utils/types';
 import Command from './command/command';
@@ -27,7 +27,7 @@ const MatchCard: FC<MatchCardProps> = ({match}) => {
                 setStatus('Match preparing')
                 break;
         }
-    }, [match])
+    }, [match.status])
 
     return (
         <View style={styles.card}>
@@ -41,7 +41,9 @@ const MatchCard: FC<MatchCardProps> = ({match}) => {
     )
 }
 
-export default MatchCard;
+export default memo(MatchCard, (prevProps, nextProps) => {
+    return prevProps.match === nextProps.match;
+});
 
 const styles = StyleSheet.create({
     card: {

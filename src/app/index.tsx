@@ -39,12 +39,12 @@ const App = () => {
   }
 
   return (
-    <View onLayout={onLayoutRootView}>
-      <MatchesContextProvider>
-         <View style={styles.body}>
-           <MainTable />
-         </View>
-       </MatchesContextProvider>
+    <View style={{flex: 1}} onLayout={onLayoutRootView}>
+      <View style={styles.body}>
+        <MatchesContextProvider>
+          <MainTable />
+        </MatchesContextProvider>
+      </View>
     </View>
   );
 };

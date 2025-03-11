@@ -1,4 +1,4 @@
-import { FC } from 'react';
+import { FC, memo } from "react";
 import { View, StyleSheet, Text, Image } from 'react-native';
 
 type CommandProps = {
@@ -17,7 +17,9 @@ const Command: FC<CommandProps> = ({commandName, isReverse}) => {
     )
 }
 
-export default Command;
+export default memo(Command, (prevProps, nextProps) => {
+    return prevProps.commandName === nextProps.commandName && prevProps.isReverse === nextProps.isReverse;
+});
 
 const styles = StyleSheet.create({
     img: {
@@ -47,4 +49,3 @@ const styles = StyleSheet.create({
         fontFamily: 'InterSemiBold'
     }
   });
-
