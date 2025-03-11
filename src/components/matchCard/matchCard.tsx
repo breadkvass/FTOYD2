@@ -1,7 +1,7 @@
 import { FC, useEffect, useState } from 'react';
+import { View, StyleSheet, Text, StyleProp, TextStyle } from 'react-native';
 import { Match } from '../../utils/types';
 import Command from './command/command';
-import { View, StyleSheet, Text, Button, FlatList, StyleProp, TextStyle } from 'react-native';
 
 type MatchCardProps = {
     match: Match;
@@ -43,7 +43,6 @@ const MatchCard: FC<MatchCardProps> = ({match}) => {
 
 export default MatchCard;
 
-
 const styles = StyleSheet.create({
     card: {
         display: 'flex',
@@ -53,7 +52,8 @@ const styles = StyleSheet.create({
         paddingHorizontal: 36,
         paddingVertical: 16,
         backgroundColor: '#0B0E12',
-        borderRadius: 4
+        borderRadius: 4,
+        height: 87
     },
     result: {
         display: 'flex',

@@ -31,7 +31,8 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         marginRight: 'auto',
         minWidth: 'auto',
-        gap: 14
+        gap: 14,
+        height: 55
     },
     reverse: {
         flexDirection: 'row-reverse',
