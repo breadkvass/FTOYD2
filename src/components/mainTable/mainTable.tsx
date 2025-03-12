@@ -2,7 +2,6 @@ import { useContext, useEffect, useRef } from 'react';
 import { View, StyleSheet, Text, FlatList, TouchableOpacity, Animated, Easing  } from 'react-native';
 import { getMatches } from 'src/utils/api';
 import { MatchesContext } from 'src/utils/matchesContext';
-import { v4 as uuid } from 'uuid';
 import MatchCard from '../matchCard/matchCard';
 import AlertIcon from '../icons/alertIcon';
 import Skeleton from '../skeleton/skeleton';
@@ -79,12 +78,11 @@ const MainTable = () => {
                 ) : (
                     <FlatList
                         data={matches}
-                        keyExtractor={() => uuid()}
+                        keyExtractor={(match) => match.title}
                         renderItem={(match) => matches && <MatchCard match={match.item}/>}
                         ItemSeparatorComponent={() => <View style={{height: 12}} />}
                     />
                 )}
-                
             </View>
         </View>
     )

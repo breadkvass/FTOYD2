@@ -43,6 +43,42 @@ const MatchesContextProvider: FC<MatchesContextProviderProps> = ({ children }) =
     });
 
     const ws = useRef<WebSocket | null>(null);
+      const matchesRef = useRef<Match[]>([]);
+      const [, forceRender] = useState({}); // Принудительный ререндер при необходимости
+    
+      useEffect(() => {
+        ws.current = new WebSocket("wss://app.ftoyd.com/fronttemp-service/ws");
+    
+        ws.current.onopen = () => {
+          console.log("Connected to WebSocket");
+        };
+    
+        ws.current.onmessage = (event) => {
+          try {
+            const data = JSON.parse(event.data);
+            // Обновляем ref без лишних ререндеров
+            matchesRef.current = data.data;
+            setMatches(matchesRef.current);
+            // console.log(matchesRef.current)
+    
+            // Принудительный ререндер только при необходимости
+            forceRender({});
+          } catch (error) {
+            console.error("Error parsing WebSocket message:", error);
+            setIsError(true);
+          }
+        };
+    
+        ws.current.onclose = () => {
+          console.log("WebSocket closed");
+        };
+    
+        return () => {
+          ws.current?.close();
+        };
+      }, [matchesRef]);
+
+    
 
     const setMatches = (matches: Match[]) => {
         setState((prev) => ({ ...prev, matches }));
@@ -56,26 +92,6 @@ const MatchesContextProvider: FC<MatchesContextProviderProps> = ({ children }) =
         setState((prev) => ({ ...prev, isError }));
     };
 
-    useEffect(() => {
-        ws.current = new WebSocket("wss://app.ftoyd.com/fronttemp-service/ws");
-
-        ws.current.onopen = () => console.log("WebSocket connected");
-        ws.current.onmessage = (event) => {
-            try {
-                const data = JSON.parse(event.data);
-                setMatches(data.data);
-            } catch (error) {
-                console.error("Error parsing WebSocket message:", error);
-            }
-        };
-    
-        ws.current.onerror = (error) => console.error("WebSocket error:", error);
-        ws.current.onclose = () => console.log("WebSocket disconnected");
-    
-        return () => {
-            ws.current?.close();
-        };
-    }, []);
 
     return (
         <MatchesContext.Provider value={{ state, actions: { setMatches, setIsLoading, setIsError } }}>
