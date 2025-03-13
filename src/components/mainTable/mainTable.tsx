@@ -128,27 +128,7 @@ const styles = StyleSheet.create({
         flexDirection: 'column',
         gap: 12,
         width: '100%'
-    },
-
-// .refresh:disabled svg path {
-//     fill: #787878;
-// }
-
-
-// .refresh:active {
-//     background-color: #A01131;
-// }
-
-// .refresh:disabled {
-//     background-color: #701328;
-//     color: #787878;
-// }
-
-// .refresh p {
-//     font-size: 18px;
-//     font-weight: 600;
-//     color: white;
-// }
+    }
 });
 
 export default MainTable;
