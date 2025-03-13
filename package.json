@@ -16,6 +16,7 @@
     "cookie": "^0.7.0"
   },
   "dependencies": {
+    "@fanchenbao/react-native-scroll-indicator": "^0.4.0",
     "@react-navigation/native": "^7.0.0",
     "expo": "~52.0.7",
     "expo-app-loading": "^2.1.1",

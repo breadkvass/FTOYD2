@@ -12,9 +12,21 @@ const MainTable = () => {
         state: { matches, isLoading, isError},
         actions: {setMatches, setIsLoading, setIsError}
     } = useContext(MatchesContext);
+    const [ dynamicHeight, setDynamicHeight ] = useState<number>();
+    const [ dynamicWidth, setDynamicWidth ] = useState<number>();
     
     const spinValue = useRef(new Animated.Value(0)).current;
     let animation: Animated.CompositeAnimation | null = null;
+    const { height, width } = Dimensions.get('window');
+
+    useEffect(() => {
+        setDynamicHeight(height * 0.8)
+    }, [height])
+
+    useEffect(() => {
+        setDynamicWidth(width)
+    }, [width])
+
 
     useEffect(() => {
         if (isLoading) {
@@ -72,18 +84,23 @@ const MainTable = () => {
                     </TouchableOpacity>
                 </View>
             </View>
-            <View>
-                {isLoading ? (
-                    <Skeleton length={6} />
-                ) : (
-                    <FlatList
-                        data={matches}
-                        keyExtractor={(match) => match.title}
-                        renderItem={(match) => matches && <MatchCard match={match.item}/>}
-                        ItemSeparatorComponent={() => <View style={{height: 12}} />}
-                    />
-                )}
-            </View>
+            {isLoading ? (
+                <Skeleton length={6} />
+            ) : (
+                <FlatListIndicator
+                    flatListProps={{
+                        ItemSeparatorComponent: () => <View style={{height: 12}} />,
+                        data: filtredMatches,
+                        renderItem: (match) => matches && <MatchCard match={match.item}/>,
+                        keyExtractor: (match) => match.title,
+                        scrollEnabled: true
+                    }}
+                    horizontal={false}
+                    position={120}
+                    indStyle={{width: 5, backgroundColor: '#101318'}}
+                    containerStyle={{height: dynamicHeight}}
+                />
+            )}
         </View>
     )
 }
