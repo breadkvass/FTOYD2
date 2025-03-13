@@ -22,3 +22,8 @@ export type Match = {
     awayScore: number;
     status:	MatchStatus;
 }
+
+export type FilterItem = {
+    label: string,
+    value: string
+}
