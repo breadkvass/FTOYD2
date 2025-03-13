@@ -12,6 +12,11 @@ import RefreshIcon from '../icons/refreshIcon';
 import ArrowDownIcon from '../icons/arrowDownIcon';
 import ArrowUpIcon from '../icons/arrowUpIcon';
 
+type FilterItem = {
+    label: string;
+    value: string;
+}
+
 const MainTable = () => {
     const {
         state: { matches, isLoading, isError},
@@ -21,8 +26,8 @@ const MainTable = () => {
     const [ dynamicHeight, setDynamicHeight ] = useState<number>();
     const [ dynamicWidth, setDynamicWidth ] = useState<number>();
     const [ isPickerHovered, setIsPickerHovered ] = useState(false);
-    const [ isPickerItemHovered, setIsPickerItemHovered ] = useState([false, '']);
-    const [ isPickerItemPressed, setIsPickerItemPressed ] = useState([false, '']);
+    const [ isPickerItemHovered, setIsPickerItemHovered ] = useState('');
+    const [ isPickerItemPressed, setIsPickerItemPressed ] = useState('');
     
     const spinValue = useRef(new Animated.Value(0)).current;
     let animation: Animated.CompositeAnimation | null = null;
@@ -79,25 +84,25 @@ const MainTable = () => {
         getAllMatches();
     }
 
+    const filters: FilterItem[] = [
+        {label: 'Все статусы', value: ''},
+        {label: 'Match preparing', value: 'Scheduled'},
+        {label: 'Live', value: 'Ongoing'},
+        {label: 'Finished', value: 'Finished'},
+    ]
+
     return (
         <View style={styles.main}>
             <View style={styles.header}>
                 <Text style={styles.title}>Match Tracker</Text>
                 <SelectDropdown
-                    data={[
-                        {label: 'Все статусы', value: ''},
-                        {label: 'Match preparing', value: 'Scheduled'},
-                        {label: 'Live', value: 'Ongoing'},
-                        {label: 'Finished', value: 'Finished'},
-                    ]}
-                    onSelect={(selectedItem) => {
-                        setFilter(selectedItem.value);
-                    }}
+                    data={filters}
+                    onSelect={(selectedItem) => setFilter(selectedItem.value)}
                     renderButton={(selectedItem, isPickerOpen) => {
                         return (
                             <View
                                 style={
-                                     isPickerOpen ? (
+                                    isPickerOpen ? (
                                          {...styles.picker, ...styles.dropdownButtonOpen}
                                     ) : (
                                         isPickerHovered ? (
@@ -110,7 +115,13 @@ const MainTable = () => {
                                 onPointerEnter={() => setIsPickerHovered(true)}
                                 onPointerLeave={() => setIsPickerHovered(false)}
                             >
-                                <Text style={(!isPickerHovered || !isPickerOpen) ? styles.dropdownButtonTxtStyle : {...styles.dropdownButtonTxtStyle, ...styles.dropdownButtonTextHover}}>
+                                <Text style={
+                                    (!isPickerHovered || !isPickerOpen) ? (
+                                        styles.dropdownButtonTxtStyle
+                                    ) : (
+                                        {...styles.dropdownButtonTxtStyle, ...styles.dropdownButtonTextHover}
+                                    )
+                                }>
                                     {(selectedItem && selectedItem.label) || 'Все статусы'}
                                 </Text>
                                 {!isPickerOpen ?
@@ -121,27 +132,30 @@ const MainTable = () => {
                             </View>
                         );
                     }}
-                    renderItem={(item) => {
+                    renderItem={(item: FilterItem) => {
                         return (
                             <View
                                 style={
-                                    (isPickerItemHovered[1] === item) ? (
+                                    (isPickerItemHovered === item.value) ? (
                                         {...styles.dropdownItemStyle, ...styles.dropdownItemHover}
                                     ) : (
-                                        (isPickerItemPressed[1] === item) ? (
+                                        (isPickerItemPressed === item.value) ? (
                                             {...styles.dropdownItemStyle, ...styles.dropdownItemPressed}
                                         ) : (
                                             styles.dropdownItemStyle
                                         )
                                     )
                                 }
-                                onPointerEnter={() => setIsPickerItemHovered([true, item])}
-                                onPointerLeave={() => setIsPickerItemHovered([false, ''])}
-                                onPointerDown={() => setIsPickerItemPressed([true, item])}
-                                onPointerUp={() => setIsPickerItemPressed([false, ''])}
+                                onPointerEnter={() => setIsPickerItemHovered(item.value)}
+                                onPointerLeave={() => setIsPickerItemHovered('')}
+                                onPointerDown={() => setIsPickerItemPressed(item.value)}
+                                onPointerUp={() => {
+                                    setIsPickerItemPressed('');
+                                    setIsPickerHovered(false)
+                                }}
                             >
                                 <Text style={
-                                    (isPickerItemHovered[1] === item || isPickerItemPressed[1] === item) ? (
+                                    (isPickerItemHovered === item.value || isPickerItemPressed === item.value) ? (
                                         {...styles.dropdownItemTxtStyle, ...styles.dropdownButtonTextHover}
                                     ) : (
                                         styles.dropdownItemTxtStyle
