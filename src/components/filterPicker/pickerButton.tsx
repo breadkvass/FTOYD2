@@ -1,4 +1,5 @@
 import { View, Text, StyleSheet } from "react-native";
+import { useMemo } from "react";
 import ArrowDownIcon from "../icons/arrowDownIcon";
 import ArrowUpIcon from "../icons/arrowUpIcon";
 
@@ -6,18 +7,22 @@ export const renderPickerButton = (
     selectedItem: any,
     isPickerOpen: boolean,
     isPickerHovered: boolean,
-    setIsPickerHovered: (isPickerHovered: boolean) => void
+    setIsPickerHovered: (isPickerHovered: boolean) => void,
+    isScreen: boolean,
+    width: number
 ) => {
+
+    const pickerStyle = useMemo(() => !isScreen ? {...styles.picker, ...styles.picker_800} : styles.picker, [width]);
 
     const pickerButtonStyle = (isPickerOpen: boolean) => {
         return isPickerOpen ? (
-            {...styles.picker, ...styles.dropdownButtonOpen}
+            {...pickerStyle, ...styles.dropdownButtonOpen}
         ) : (
            isPickerHovered ? (
-               {...styles.picker, ...styles.dropdownButtonHover} 
-           ) : (
-               styles.picker
-           )
+                {...pickerStyle, ...styles.dropdownButtonHover} 
+            ) : (
+                pickerStyle
+            )
        )
     }
 
@@ -50,8 +55,7 @@ export const renderPickerButton = (
 const styles = StyleSheet.create({
     picker: {
         marginRight: 'auto',
-        marginLeft: 24,
-        width: 190,
+        minWidth: 190,
         backgroundColor: '#0B0E12',
         padding: 16,
         borderWidth: 0,
@@ -59,6 +63,11 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         justifyContent: 'space-between',
         alignItems: 'center',
+        height: 56
+    },
+    picker_800: {
+        width: '100%',
+        marginRight: 0
     },
     dropdownButtonHover: {
         backgroundColor: '#0F1318'
