@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Animated, View, StyleSheet, Easing } from 'react-native';
 
 type SkeletonProps = {
@@ -61,7 +61,7 @@ const styles = StyleSheet.create({
     flexDirection: 'column',
   },
   skeleton: {
-    backgroundColor: '#0B0F13', // Фоновый цвет по умолчанию
+    backgroundColor: '#0B0F13',
     width: '100%',
     height: 87,
     marginBottom: 10,
