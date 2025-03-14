@@ -11,12 +11,15 @@ type TeamCardProps = {
 }
 
 const TeamCard: FC<TeamCardProps> = ({team, matchStatus}) => {
-    const { width, isScreenM } = useResize();
+    const { width, isScreenS, isScreenM } = useResize();
 
-    const infoStyle = useMemo(() => !isScreenM ? styles.info1000 : styles.info, [width])
+    const infoStyle = useMemo(() => !isScreenM ? styles.info1000 : styles.info, [width]);
+    const dividerStyle = useMemo(() => !isScreenS ? styles.divider800 : styles.divider, [width]);
 
     const setValue = (value: number, res: string) => matchStatus !== 'Scheduled' ? value.toString() : res;
     
+    const Divider = () => <View style={dividerStyle} />
+
     return (
         <View style={infoStyle}>
             <FlatList
@@ -29,7 +32,9 @@ const TeamCard: FC<TeamCardProps> = ({team, matchStatus}) => {
             />
             <View style={styles.stats}>
                 <Stats type='Points:' value={setValue(team.points, '0')} flexNum={1} sign={team.points > 0 ? '+' : ''} />
+                <Divider />
                 <Stats type='Место:' value={setValue(team.place, '?')} flexNum={1} />
+                <Divider />
                 <Stats type='Всего убийств:' value={setValue(team.total_kills, '0')} flexNum={1} />
             </View>
         </View>
@@ -57,5 +62,15 @@ const styles = StyleSheet.create({
         paddingVertical: 14,
         backgroundColor: '#101318',
         borderRadius: 4
+    },
+    divider: {
+        width: 1,
+        height: 16,
+        backgroundColor: '#141A21'
+    },
+    divider800: {
+        width: 1,
+        height: 13,
+        backgroundColor: '#141A21'
     }
 });
