@@ -44,7 +44,7 @@ const MatchesContextProvider: FC<MatchesContextProviderProps> = ({ children }) =
 
     const ws = useRef<WebSocket | null>(null);
       const matchesRef = useRef<Match[]>([]);
-      const [, forceRender] = useState({}); // Принудительный ререндер при необходимости
+      const [, forceRender] = useState({});
     
       useEffect(() => {
         ws.current = new WebSocket("wss://app.ftoyd.com/fronttemp-service/ws");
@@ -56,12 +56,8 @@ const MatchesContextProvider: FC<MatchesContextProviderProps> = ({ children }) =
         ws.current.onmessage = (event) => {
           try {
             const data = JSON.parse(event.data);
-            // Обновляем ref без лишних ререндеров
             matchesRef.current = data.data;
             setMatches(matchesRef.current);
-            // console.log(matchesRef.current)
-    
-            // Принудительный ререндер только при необходимости
             forceRender({});
           } catch (error) {
             console.error("Error parsing WebSocket message:", error);
@@ -78,8 +74,6 @@ const MatchesContextProvider: FC<MatchesContextProviderProps> = ({ children }) =
         };
       }, [matchesRef]);
 
-    
-
     const setMatches = (matches: Match[]) => {
         setState((prev) => ({ ...prev, matches }));
     };
@@ -91,7 +85,6 @@ const MatchesContextProvider: FC<MatchesContextProviderProps> = ({ children }) =
     const setIsError = (isError: boolean) => {
         setState((prev) => ({ ...prev, isError }));
     };
-
 
     return (
         <MatchesContext.Provider value={{ state, actions: { setMatches, setIsLoading, setIsError } }}>
