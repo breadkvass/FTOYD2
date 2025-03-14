@@ -1,5 +1,6 @@
-import { FC, memo } from "react";
+import { FC, memo, useMemo } from "react";
 import { View, StyleSheet, Text, Image } from 'react-native';
+import { useResize } from "src/hooks/useResize";
 
 type CommandProps = {
     commandName: string;
@@ -7,12 +8,18 @@ type CommandProps = {
 }
 
 const Command: FC<CommandProps> = ({commandName, isReverse}) => {
-    const style = !isReverse ? styles.command : {...styles.command, ...styles.reverse};
+    const { width, isScreenM } = useResize();
+
+    const imgStyle = useMemo(() => !isScreenM ? styles.img1000 : styles.img, [width]);
+    const nameStyle = useMemo(() => !isScreenM ? {...styles.name, ...styles.name1000} : styles.name, [width]);
+    const commandStyle = useMemo(() => !isScreenM ? {...styles.command, ...styles.command1000} : styles.command, [width]);
+
+    const style = !isReverse ? commandStyle : {...commandStyle, ...styles.reverse};
 
     return (
         <View style={style}>
-            <Image style={styles.img} source={require('../../../assets/images/command-icon.png')}/>
-            <Text style={styles.name}>{commandName}</Text>
+            <Image style={imgStyle} source={require('../../../assets/images/command-icon.png')}/>
+            <Text style={nameStyle}>{commandName}</Text>
         </View>
     )
 }
@@ -24,7 +31,11 @@ export default memo(Command, (prevProps, nextProps) => {
 const styles = StyleSheet.create({
     img: {
         width: 48,
-        aspectRatio: '1 / 1'
+        height: 48
+    },
+    img1000: {
+        width: 28,
+        height: 28
     },
     command: {
         display: 'flex',
@@ -35,6 +46,9 @@ const styles = StyleSheet.create({
         minWidth: 'auto',
         gap: 14,
         height: 55
+    },
+    command1000: {
+        gap: 6
     },
     reverse: {
         flexDirection: 'row-reverse',
@@ -47,5 +61,8 @@ const styles = StyleSheet.create({
         fontWeight: 600,
         color: 'white',
         fontFamily: 'InterSemiBold'
+    },
+    name1000: {
+        fontSize: 14
     }
   });
