@@ -53,7 +53,8 @@ const styles = StyleSheet.create({
     },
     info1000: {
         width: '100%',
-        flexDirection: 'column'
+        flexDirection: 'column',
+        gap: 8
     },
     stats: {
         display: 'flex',
