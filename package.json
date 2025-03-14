@@ -3,8 +3,6 @@
   "scripts": {
     "build:web": "npx expo export --platform web -c --output-dir dist",
     "dev": "npm run start",
-    "publish:expo": "npx eas-cli update",
-    "publish:web": "firebase deploy --only hosting",
     "serve:app": "expo start --dev-client",
     "serve:web": "npx serve dist",
     "setup": "npm install expo && expo install",
