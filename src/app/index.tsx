@@ -1,12 +1,14 @@
 import * as Font from 'expo-font';
 import * as SplashScreen from 'expo-splash-screen';
 import { useCallback, useEffect, useState } from 'react';
-import { View, StyleSheet } from 'react-native';
+import { View, ScrollView } from 'react-native';
 import MainTable from 'src/components/mainTable/mainTable';
+import { useResize } from 'src/hooks/useResize';
 import { MatchesContextProvider } from 'src/utils/matchesContext';
 
 const App = () => {
-  const [appIsReady, setAppIsReady] = useState(false);
+  const [ appIsReady, setAppIsReady ] = useState(false);
+  const { isScreenS } = useResize();
 
   useEffect(() => {
     async function prepare() {
@@ -39,25 +41,17 @@ const App = () => {
   }
 
   return (
-    <View style={{flex: 1}} onLayout={onLayoutRootView}>
-      <View style={styles.body}>
-        <MatchesContextProvider>
-          <MainTable />
-        </MatchesContextProvider>
+    <MatchesContextProvider>
+      <ScrollView
+          scrollEnabled={!isScreenS ? true : false}
+          style={{flex: 1, backgroundColor: '#06080C'}}
+        >
+      <View style={{flex: 1}} onLayout={onLayoutRootView}>
+        <MainTable />
       </View>
-    </View>
+      </ScrollView>
+    </MatchesContextProvider>
   );
 };
 
 export default App;
-
-const styles = StyleSheet.create({
-  body: {
-    marginHorizontal: 0,
-    marginVertical: 'auto',
-    display: 'flex',
-    backgroundColor: '#06080C',
-    color: 'white',
-    minHeight: '100%'
-  }
-});
