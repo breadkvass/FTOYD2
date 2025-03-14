@@ -1,14 +1,15 @@
 import { FC, memo, useMemo } from "react";
 import { View, StyleSheet, Text, Image } from 'react-native';
 import { useResize } from "src/hooks/useResize";
-import { Player } from "src/utils/types";
+import { MatchStatus, Player } from "src/utils/types";
 import Stats from "../stats/stats";
 
 type TeamPlayerProps = {
     teamPlayer: Player;
+    matchStatus: MatchStatus;
 }
 
-const TeamPlayer: FC<TeamPlayerProps> = ({teamPlayer}) => {
+const TeamPlayer: FC<TeamPlayerProps> = ({teamPlayer, matchStatus}) => {
     const { width, isScreenS, isScreenL, isScreenXl } = useResize();
 
     const ContainerStyle = useMemo(() => {
@@ -24,7 +25,7 @@ const TeamPlayer: FC<TeamPlayerProps> = ({teamPlayer}) => {
                 <Image style={ImgStyle} source={require('../../../assets/images/avatar-icon.png')}/>
                 <Text style={NameStyle}>{teamPlayer.username}</Text>
             </View>
-            <Stats type="Убийств:" value={teamPlayer.kills} />
+            <Stats type="Убийств:" value={matchStatus !== 'Scheduled' ? teamPlayer.kills.toString() : '0'} />
         </View>
     )
 }

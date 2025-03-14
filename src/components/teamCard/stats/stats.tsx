@@ -4,7 +4,7 @@ import { useResize } from "src/hooks/useResize";
 
 type StatsProps = {
     type: string,
-    value: number,
+    value: string,
     flexNum?: number,
     sign?: string
 }
@@ -19,7 +19,7 @@ const Stats: FC<StatsProps> = ({type, value, flexNum, sign}) => {
     return (
         <View style={{...styles.row, ...flex}}>
             <Text style={textStyle}>{type}</Text>
-            <Text style={valueStyle}>{sign}{value}</Text>
+            <Text style={valueStyle}>{Number(value) > 0 ? sign : ''}{value}</Text>
         </View>
     )
 }

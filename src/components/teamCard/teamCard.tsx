@@ -1,18 +1,21 @@
 import { FC, memo, useMemo } from "react";
 import { View, StyleSheet, FlatList } from 'react-native';
 import { useResize } from "src/hooks/useResize";
-import { Team } from "src/utils/types";
+import { MatchStatus, Team } from "src/utils/types";
 import TeamPlayer from "./teamPlayer/teamPlayer";
 import Stats from "./stats/stats";
 
 type TeamCardProps = {
     team: Team;
+    matchStatus: MatchStatus;
 }
 
-const TeamCard: FC<TeamCardProps> = ({team}) => {
+const TeamCard: FC<TeamCardProps> = ({team, matchStatus}) => {
     const { width, isScreenM } = useResize();
 
     const infoStyle = useMemo(() => !isScreenM ? styles.info1000 : styles.info, [width])
+
+    const setValue = (value: number, res: string) => matchStatus !== 'Scheduled' ? value.toString() : res;
     
     return (
         <View style={infoStyle}>
@@ -22,12 +25,12 @@ const TeamCard: FC<TeamCardProps> = ({team}) => {
                 horizontal={false}
                 columnWrapperStyle={{gap: 8}}
                 keyExtractor={(player, ind) => `${team.name}_${player.username}_${ind}`}
-                renderItem={(player) => <TeamPlayer teamPlayer={player.item}/>}
+                renderItem={(player) => <TeamPlayer teamPlayer={player.item} matchStatus={matchStatus} />}
             />
             <View style={styles.stats}>
-                <Stats type='Points:' value={team.points} flexNum={1} sign={team.points > 0 ? '+' : ''} />
-                <Stats type='Место:' value={team.place} flexNum={1} />
-                <Stats type='Всего убийств:' value={team.total_kills} flexNum={1} />
+                <Stats type='Points:' value={setValue(team.points, '0')} flexNum={1} sign={team.points > 0 ? '+' : ''} />
+                <Stats type='Место:' value={setValue(team.place, '?')} flexNum={1} />
+                <Stats type='Всего убийств:' value={setValue(team.total_kills, '0')} flexNum={1} />
             </View>
         </View>
     )

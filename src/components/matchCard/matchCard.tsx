@@ -96,9 +96,9 @@ const MatchCard: FC<MatchCardProps> = ({ match }) => {
       </View>
       {isFullInfo &&
         <View style={teamsStyle}>
-          <TeamCard team={match.awayTeam} />
+          <TeamCard team={match.awayTeam} matchStatus={match.status} />
           {!isScreenM && <Divider />}
-          <TeamCard team={match.homeTeam} />
+          <TeamCard team={match.homeTeam} matchStatus={match.status} />
         </View>
       }
       {!isScreenM && <Chevron />}
