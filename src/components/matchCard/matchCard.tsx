@@ -16,6 +16,16 @@ const MatchCard: FC<MatchCardProps> = ({ match }) => {
   const { width, isScreenM, isScreenL } = useResize();
   const fadeAnim = useRef(new Animated.Value(1)).current;
 
+  useEffect(() => {
+    fadeAnim.setValue(0);
+    Animated.timing(fadeAnim, {
+      toValue: 1,
+      duration: 500,
+      easing: Easing.out(Easing.quad),
+      useNativeDriver: false,
+    }).start();
+  }, [match.status]);
+
   const statusTypeStyle = useMemo(() => {
     switch (match.status) {
       case "Finished":
@@ -61,16 +71,6 @@ const MatchCard: FC<MatchCardProps> = ({ match }) => {
       default:
         return "";
     }
-  }, [match.status]);
-
-  useEffect(() => {
-    fadeAnim.setValue(0);
-    Animated.timing(fadeAnim, {
-      toValue: 1,
-      duration: 500,
-      easing: Easing.out(Easing.quad),
-      useNativeDriver: false,
-    }).start();
   }, [match.status]);
 
   return (

@@ -9,7 +9,7 @@ type TeamPlayerProps = {
 }
 
 const TeamPlayer: FC<TeamPlayerProps> = ({teamPlayer}) => {
-    const { width, isScreenS, isScreenL, isScreenXl } = useResize()
+    const { width, isScreenS, isScreenL, isScreenXl } = useResize();
 
     const ContainerStyle = useMemo(() => {
         return ( !isScreenS ? {...styles.container, ...styles.container800} : 

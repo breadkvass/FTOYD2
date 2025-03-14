@@ -90,6 +90,7 @@ const styles = StyleSheet.create({
         gap: 20,
         width: '100%',
         padding: 42,
+        minHeight: '100%'
     },
     main800: {
         padding: 0,
