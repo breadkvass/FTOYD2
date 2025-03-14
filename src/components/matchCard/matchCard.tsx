@@ -48,7 +48,7 @@ const MatchCard: FC<MatchCardProps> = ({ match }) => {
   const Divider = () => {
     return (
       <View style={styles.divider}>
-        <Text style={styles.vs}>vs</Text>
+        <Text style={styles.vs}>VS</Text>
       </View>
     )
   }
@@ -97,7 +97,6 @@ const MatchCard: FC<MatchCardProps> = ({ match }) => {
   );
 };
 
-// export default MatchCard;
 export default memo(MatchCard, (prevProps) => {
   return ((prevProps.match.status === 'Finished') || (prevProps.match.status === 'Scheduled'))
 });
@@ -133,7 +132,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
     borderRadius: 4,
-    height: 87,
+    height: 55,
     flex: 1,
   },
   card1000: {
@@ -216,10 +215,9 @@ const styles = StyleSheet.create({
     color: '#313A47',
     fontFamily: 'InterSemiBold',
     fontSize: 14,
-    position: 'absolute',
-    left: '48%',
-    top: -10,
+    marginHorizontal: 'auto',
+    paddingHorizontal: 10,
     backgroundColor: '#0B0E12',
-    paddingHorizontal: 10
+    marginTop: -8
   }
 });
