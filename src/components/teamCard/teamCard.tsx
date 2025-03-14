@@ -9,7 +9,6 @@ type TeamCardProps = {
 }
 
 const TeamCard: FC<TeamCardProps> = ({team}) => {
-
     return (
         <View style={styles.info}>
             <FlatList

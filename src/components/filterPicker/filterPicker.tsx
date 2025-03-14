@@ -4,6 +4,7 @@ import { renderPickerButton } from "./pickerButton";
 import { renderPickerItem } from "./pickerItem";
 import { FilterItem } from "src/utils/types";
 import SelectDropdown from "react-native-select-dropdown";
+import { useResize } from "src/hooks/useResize";
 
 type FilterPickerProps = {
     setFilterHandler: (selectedItem: any) => any
@@ -13,7 +14,9 @@ const FilterPicker: FC<FilterPickerProps> = ({setFilterHandler}) => {
     const [ isPickerItemHovered, setIsPickerItemHovered ] = useState('');
     const [ isPickerItemPressed, setIsPickerItemPressed ] = useState('');
     const [ isPickerHovered, setIsPickerHovered ] = useState(false);
-
+    
+    const { width, isScreenS } = useResize();
+    
     const filters: FilterItem[] = [
         {label: 'Все статусы', value: ''},
         {label: 'Match preparing', value: 'Scheduled'},
@@ -29,7 +32,9 @@ const FilterPicker: FC<FilterPickerProps> = ({setFilterHandler}) => {
                 selectedItem,
                 isPickerOpen,
                 isPickerHovered,
-                setIsPickerHovered
+                setIsPickerHovered,
+                isScreenS,
+                width
             )}
             renderItem={(item: FilterItem) => renderPickerItem(
                 item,
