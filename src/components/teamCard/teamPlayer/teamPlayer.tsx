@@ -30,6 +30,8 @@ const TeamPlayer: FC<TeamPlayerProps> = ({teamPlayer, matchStatus}) => {
     )
 }
 
+// export default TeamPlayer;
+
 export default memo(TeamPlayer, (prevProps, nextProps) => {
     return prevProps.teamPlayer === nextProps.teamPlayer;
 });

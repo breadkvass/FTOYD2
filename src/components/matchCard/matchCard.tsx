@@ -6,6 +6,7 @@ import Command from "./command/command";
 import TeamCard from "../teamCard/teamCard";
 import ChevronDownIcon from "../icons/chevronDownIcon";
 import ChevronUpIcon from "../icons/chevronUpIcon";
+import { animate, animateScore } from "src/utils/utils";
 
 type MatchCardProps = {
   match: Match;
@@ -13,18 +14,10 @@ type MatchCardProps = {
 
 const MatchCard: FC<MatchCardProps> = ({ match }) => {
   const [ isFullInfo, setIsFullInfo ] = useState(false);
-  const { width, isScreenM, isScreenL } = useResize();
+  const { width, isScreenM } = useResize();
   const fadeAnim = useRef(new Animated.Value(1)).current;
 
-  useEffect(() => {
-    fadeAnim.setValue(0);
-    Animated.timing(fadeAnim, {
-      toValue: 1,
-      duration: 500,
-      easing: Easing.out(Easing.quad),
-      useNativeDriver: false,
-    }).start();
-  }, [match.status]);
+  useEffect(() => animateScore(fadeAnim), [match]);
 
   const statusTypeStyle = useMemo(() => {
     switch (match.status) {
@@ -85,9 +78,7 @@ const MatchCard: FC<MatchCardProps> = ({ match }) => {
                   </Animated.Text>
               </View>
               <View style={statusStyle}>
-                  <Animated.Text style={[styles.status, { opacity: fadeAnim }]}>
-                      {statusText}
-                  </Animated.Text>
+                <Text style={styles.status}>{statusText}</Text>
               </View>
           </View>
           <Command commandName={match.homeTeam.name} isReverse />
@@ -106,13 +97,9 @@ const MatchCard: FC<MatchCardProps> = ({ match }) => {
   );
 };
 
-export default memo(MatchCard, (prevProps, nextProps) => {
-  return (
-    ((prevProps.match.status === 'Finished') || (prevProps.match.status === 'Scheduled')) &&
-    ((prevProps.match.awayScore === nextProps.match.awayScore) ||
-    (prevProps.match.homeScore === nextProps.match.homeScore) ||
-    (prevProps.match.status === nextProps.match.status))
-  )
+// export default MatchCard;
+export default memo(MatchCard, (prevProps) => {
+  return ((prevProps.match.status === 'Finished') || (prevProps.match.status === 'Scheduled'))
 });
 
 const styles = StyleSheet.create({

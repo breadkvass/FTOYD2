@@ -23,3 +23,13 @@ export const animate = (isLoading: boolean, value: Animated.Value) => {
         }
     };
 }
+
+export const animateScore = (value: Animated.Value) => {
+    value.setValue(0);
+    Animated.timing(value, {
+      toValue: 1,
+      duration: 1000,
+      easing: Easing.out(Easing.quad),
+      useNativeDriver: false,
+    }).start();
+}

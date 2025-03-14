@@ -1,6 +1,7 @@
-import { FC, memo, useMemo } from "react";
-import { View, StyleSheet, Text } from 'react-native';
+import { FC, memo, useEffect, useMemo, useRef } from "react";
+import { View, StyleSheet, Text, Animated } from 'react-native';
 import { useResize } from "src/hooks/useResize";
+import { animateScore } from "src/utils/utils";
 
 type StatsProps = {
     type: string,
@@ -11,7 +12,12 @@ type StatsProps = {
 
 const Stats: FC<StatsProps> = ({type, value, flexNum, sign}) => {
     const { width, isScreenL } = useResize();
+    const fadeAnim = useRef(new Animated.Value(1)).current;
     const flex = {flex: flexNum};
+
+    useEffect(() => animateScore(fadeAnim), [value]);
+
+
 
     const textStyle = useMemo(() => !isScreenL ?  {...styles.text, ...styles.text_1200} : styles.text, [width]);
     const valueStyle = useMemo(() => !isScreenL ? {...styles.value, ...styles.value_1200} : styles.value, [width]);
@@ -19,14 +25,14 @@ const Stats: FC<StatsProps> = ({type, value, flexNum, sign}) => {
     return (
         <View style={{...styles.row, ...flex}}>
             <Text style={textStyle}>{type}</Text>
-            <Text style={valueStyle}>{Number(value) > 0 ? sign : ''}{value}</Text>
+            <Animated.Text style={[valueStyle, { opacity: fadeAnim }]}>
+                {Number(value) > 0 ? sign : ''}{value}
+            </Animated.Text>
         </View>
     )
 }
 
-export default memo(Stats, (prevProps, nextProps) => {
-    return prevProps.type === nextProps.type || prevProps.value === nextProps.value;
-});
+export default Stats;
 
 const styles = StyleSheet.create({
     row: {
