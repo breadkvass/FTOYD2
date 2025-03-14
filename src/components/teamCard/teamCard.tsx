@@ -1,5 +1,6 @@
-import { FC, memo } from "react";
+import { FC, memo, useMemo } from "react";
 import { View, StyleSheet, FlatList } from 'react-native';
+import { useResize } from "src/hooks/useResize";
 import { Team } from "src/utils/types";
 import TeamPlayer from "./teamPlayer/teamPlayer";
 import Stats from "./stats/stats";
@@ -9,8 +10,12 @@ type TeamCardProps = {
 }
 
 const TeamCard: FC<TeamCardProps> = ({team}) => {
+    const { width, isScreenM } = useResize();
+
+    const infoStyle = useMemo(() => !isScreenM ? styles.info1000 : styles.info, [width])
+    
     return (
-        <View style={styles.info}>
+        <View style={infoStyle}>
             <FlatList
                 data={team.players}
                 numColumns={3}
@@ -36,7 +41,11 @@ const styles = StyleSheet.create({
     info: {
         flex: 1,
         flexDirection: 'column',
-        gap: 8
+        gap: 8,
+    },
+    info1000: {
+        width: '100%',
+        flexDirection: 'column'
     },
     stats: {
         display: 'flex',

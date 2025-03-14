@@ -1,5 +1,6 @@
-import { FC, memo } from "react";
+import { FC, memo, useMemo } from "react";
 import { View, StyleSheet, Text, Image } from 'react-native';
+import { useResize } from "src/hooks/useResize";
 import { Player } from "src/utils/types";
 import Stats from "../stats/stats";
 
@@ -8,11 +9,20 @@ type TeamPlayerProps = {
 }
 
 const TeamPlayer: FC<TeamPlayerProps> = ({teamPlayer}) => {
+    const { width, isScreenS, isScreenL, isScreenXl } = useResize()
+
+    const ContainerStyle = useMemo(() => {
+        return ( !isScreenS ? {...styles.container, ...styles.container800} : 
+            (!isScreenXl ? {...styles.container, ...styles.container1800} : styles.container))
+    }, [width]);
+    const NameStyle = useMemo(() => !isScreenL ? {...styles.value, ...styles.value_1200} : styles.value, [width]);
+    const ImgStyle = useMemo(() => !isScreenL ? styles.img_1200 : styles.img, [width]);
+
     return (
-        <View style={styles.container}>
+        <View style={ContainerStyle}>
             <View style={styles.row}>
-                <Image style={styles.img} source={require('../../../assets/images/avatar-icon.png')}/>
-                <Text style={styles.value}>{teamPlayer.username}</Text>
+                <Image style={ImgStyle} source={require('../../../assets/images/avatar-icon.png')}/>
+                <Text style={NameStyle}>{teamPlayer.username}</Text>
             </View>
             <Stats type="Убийств:" value={teamPlayer.kills} />
         </View>
@@ -35,6 +45,14 @@ const styles = StyleSheet.create({
         paddingHorizontal: 24,
         paddingVertical: 8,
     },
+    container1800: {
+        flexDirection: 'column'
+    },
+    container800: {
+        flexDirection: 'column',
+        paddingHorizontal: 12,
+        paddingVertical: 7,
+    },
     row: {
         display: 'flex',
         alignItems: 'center',
@@ -45,16 +63,16 @@ const styles = StyleSheet.create({
         width: 36,
         height: 36
     },
+    img_1200: {
+        width: 32,
+        height: 32
+    },
     value: {
         color: 'white',
         fontFamily: 'InterSemiBold',
         fontSize: 16
     },
-    text: {
-        color: '#FAFAFA',
-        fontFamily: 'InterMed',
-        fontSize: 14,
-        opacity: 0.4
-
+    value_1200: {
+        fontSize: 14
     }
 });

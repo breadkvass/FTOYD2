@@ -19,8 +19,15 @@ const MainTable = () => {
     const [ filter, setFilter ] = useState<MatchStatus | ''>('');
     const { width, isScreenS, isScreenL } = useResize();
     const spinValue = useRef(new Animated.Value(0)).current;
+
+    useEffect(() => {
+        animate(isLoading, spinValue);
+    }, [isLoading]);
+
+    useEffect(() => getAllMatches(), [])
     
     // стили элементов в зависимости от ширины экрана
+    const mainStyle = useMemo(() => !isScreenS ? {...styles.main, ...styles.main800} : styles.main, [width]);
     const headerStyle = useMemo(() => !isScreenS ? {...styles.header, ...styles.header800} : styles.header, [width]);
     const errorStyle = useMemo(() => !isScreenS ? {...styles.error, ...styles.error800} : styles.error, [width]);
     const refreshButtonStyle = useMemo(() => !isScreenS ? {...styles.refreshButton, ...styles.refreshButton800} : styles.refreshButton, [width]);
@@ -36,23 +43,14 @@ const MainTable = () => {
     }, [width]);
 
     // отфильтрованные матчи
-    const filtredMatches = useMemo(() => filter ? matches.filter((match) => match.status === filter) : matches, [matches]) ;
-
-    useEffect(() => {
-        animate(isLoading, spinValue);
-    }, [isLoading]);
-
-    useEffect(() => getAllMatches(), [])
+    const filtredMatches = useMemo(() => filter ? matches.filter((match) => match.status === filter) : matches, [matches]);
 
     const getAllMatches = () => {
         setIsLoading(true);
         getMatches()
             .then(data => setMatches(data.data.matches))
             .catch(() => setIsError(true))
-            .finally(() => {
-                setIsLoading(false);
-                setIsError(true);
-            })
+            .finally(() => setIsLoading(false))
     }
 
     const onRefresh = () => {
@@ -61,7 +59,7 @@ const MainTable = () => {
     }
  
     return (
-        <View style={styles.main}>
+        <View style={mainStyle}>
             <View style={headerStyle}>
                 <View style={leftHeaderPartStyle}>
                     <Text style={styles.title}>Match Tracker</Text>
@@ -92,6 +90,11 @@ const styles = StyleSheet.create({
         gap: 20,
         width: '100%',
         padding: 42,
+    },
+    main800: {
+        padding: 0,
+        paddingTop: 32,
+        paddingHorizontal: 16
     },
     header: {
         display: 'flex',
