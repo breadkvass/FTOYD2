@@ -12,18 +12,18 @@ type TeamPlayerProps = {
 const TeamPlayer: FC<TeamPlayerProps> = ({teamPlayer, matchStatus}) => {
     const { width, isScreenS, isScreenL, isScreenXl } = useResize();
 
-    const ContainerStyle = useMemo(() => {
+    const containerStyle = useMemo(() => {
         return ( !isScreenS ? {...styles.container, ...styles.container800} : 
             (!isScreenXl ? {...styles.container, ...styles.container1800} : styles.container))
     }, [width]);
-    const NameStyle = useMemo(() => !isScreenL ? {...styles.value, ...styles.value_1200} : styles.value, [width]);
-    const ImgStyle = useMemo(() => !isScreenL ? styles.img_1200 : styles.img, [width]);
+    const nameStyle = useMemo(() => !isScreenL ? {...styles.value, ...styles.value1200} : styles.value, [width]);
+    const imgStyle = useMemo(() => !isScreenL ? styles.img1200 : styles.img, [width])
 
     return (
-        <View style={ContainerStyle}>
+        <View style={containerStyle}>
             <View style={styles.row}>
-                <Image style={ImgStyle} source={require('../../../assets/images/avatar-icon.png')}/>
-                <Text style={NameStyle}>{teamPlayer.username}</Text>
+                <Image style={imgStyle} source={require('../../../assets/images/avatar-icon.png')}/>
+                <Text style={nameStyle}>{teamPlayer.username}</Text>
             </View>
             <Stats type="Убийств:" value={matchStatus !== 'Scheduled' ? teamPlayer.kills.toString() : '0'} />
         </View>
@@ -66,7 +66,7 @@ const styles = StyleSheet.create({
         width: 36,
         height: 36
     },
-    img_1200: {
+    img1200: {
         width: 32,
         height: 32
     },
@@ -75,7 +75,7 @@ const styles = StyleSheet.create({
         fontFamily: 'InterSemiBold',
         fontSize: 16
     },
-    value_1200: {
+    value1200: {
         fontSize: 14
     }
 });
