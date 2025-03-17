@@ -11,13 +11,13 @@ const Command: FC<CommandProps> = ({commandName, isReverse}) => {
     const { width, isScreenXS, isScreenM } = useResize();
 
     const imgStyle = useMemo(() => !isScreenM ? styles.img1000 : styles.img, [width]);
-    const nameStyle = useMemo(() => !isScreenM ? {...styles.name, ...styles.name1000} : styles.name, [width]);
+    const nameStyle = useMemo(() => !isScreenM ? [ styles.name,  styles.name1000 ] : styles.name, [width]);
     const commandStyle = useMemo(() => { 
-        return !isScreenXS ? {...styles.command, ...styles.command450} :
-        (!isScreenM ? {...styles.command, ...styles.command1000} : styles.command)
+        return !isScreenXS ? [ styles.command,  styles.command450 ] :
+        (!isScreenM ? [ styles.command,  styles.command1000 ] : styles.command)
     }, [width]);
 
-    const style = isReverse ? {...commandStyle, ...(!isScreenXS ? styles.reverse450 : styles.reverse)} : commandStyle;
+    const style = isReverse ? [ commandStyle,  (!isScreenXS ? styles.reverse450 : styles.reverse) ] : commandStyle;
 
     return (
         <View style={style}>

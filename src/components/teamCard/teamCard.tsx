@@ -15,7 +15,7 @@ const TeamCard: FC<TeamCardProps> = ({team, matchStatus}) => {
 
     const infoStyle = useMemo(() => !isScreenM ? styles.info1000 : styles.info, [width]);
     const dividerStyle = useMemo(() => !isScreenS ? styles.divider800 : styles.divider, [width]);
-    const statsStyle = useMemo(() => !isScreenXS ? {...styles.stats, ...styles.stats450} : styles.stats, [width] )
+    const statsStyle = useMemo(() => !isScreenXS ? [ styles.stats, styles.stats450 ] : styles.stats, [width] )
 
     const setValue = (value: number, res: string) => matchStatus !== 'Scheduled' ? value.toString() : res;
     

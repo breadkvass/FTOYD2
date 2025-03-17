@@ -12,14 +12,14 @@ export const renderPickerButton = (
     width: number
 ) => {
 
-    const pickerStyle = useMemo(() => !isScreen ? {...styles.picker, ...styles.picker_800} : styles.picker, [width]);
+    const pickerStyle = useMemo(() => !isScreen ? [styles.picker,  styles.picker_800] : styles.picker, [width]);
 
     const pickerButtonStyle = (isPickerOpen: boolean) => {
         return isPickerOpen ? (
-            {...pickerStyle, ...styles.dropdownButtonOpen}
+            [ pickerStyle, styles.dropdownButtonOpen ]
         ) : (
            isPickerHovered ? (
-                {...pickerStyle, ...styles.dropdownButtonHover} 
+                [ pickerStyle, styles.dropdownButtonHover ]
             ) : (
                 pickerStyle
             )
@@ -30,7 +30,7 @@ export const renderPickerButton = (
         return (!isPickerHovered || !isPickerOpen) ? (
             styles.dropdownButtonTxtStyle
         ) : (
-            {...styles.dropdownButtonTxtStyle, ...styles.dropdownButtonTextHover}
+            [ styles.dropdownButtonTxtStyle,  styles.dropdownButtonTextHover ]
         )
     }
 

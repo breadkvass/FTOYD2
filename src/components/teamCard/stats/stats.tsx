@@ -20,12 +20,12 @@ const Stats: FC<StatsProps> = ({ type, value, flexNum, sign }) => {
     }, [value]);
 
     const flex = { flex: flexNum };
-    const textStyle = useMemo(() => !isScreenL ? { ...styles.text, ...styles.text1200 } : styles.text, [width]);
-    const valueStyle = useMemo(() => !isScreenL ? { ...styles.value, ...styles.value1200 } : styles.value, [width]);
-    const rowStyle = useMemo(() => !isScreenXS ? { ...styles.row, ...styles.row450 } : styles.row, [width]);
+    const textStyle = useMemo(() => !isScreenL ? [ styles.text, styles.text1200 ] : styles.text, [width]);
+    const valueStyle = useMemo(() => !isScreenL ? [ styles.value, styles.value1200 ] : styles.value, [width]);
+    const rowStyle = useMemo(() => !isScreenXS ? [ styles.row, styles.row450 ] : styles.row, [width]);
 
     return (
-        <View style={{ ...rowStyle, ...flex }}>
+        <View style={[ rowStyle,  flex ]}>
             <Text style={textStyle}>{type}</Text>
             <Animated.Text style={[valueStyle, { opacity: fadeAnim }]}>
                 {Number(displayedValue) > 0 ? sign : ''}{displayedValue}

@@ -12,10 +12,10 @@ export const renderPickerItem = (
     const pickerItemStyle = (item: FilterItem) => {
         return (
             isPickerItemHovered === item.value) ? (
-                {...styles.dropdownItemStyle, ...styles.dropdownItemHover}
+                [ styles.dropdownItemStyle,  styles.dropdownItemHover ]
             ) : (
                 (isPickerItemPressed === item.value) ? (
-                    {...styles.dropdownItemStyle, ...styles.dropdownItemPressed}
+                    [ styles.dropdownItemStyle,  styles.dropdownItemPressed ]
                 ) : (
                     styles.dropdownItemStyle
                 )
@@ -32,7 +32,7 @@ export const renderPickerItem = (
         >
             <Text style={
                 (isPickerItemHovered === item.value || isPickerItemPressed === item.value) ? (
-                    {...styles.dropdownItemTxtStyle, ...styles.dropdownButtonTextHover}
+                    [ styles.dropdownItemTxtStyle,  styles.dropdownButtonTextHover ]
                 ) : (
                     styles.dropdownItemTxtStyle
                 )

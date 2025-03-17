@@ -27,19 +27,19 @@ const MainTable = () => {
     useEffect(() => getAllMatches(), [])
     
     // стили элементов в зависимости от ширины экрана
-    const mainStyle = useMemo(() => !isScreenS ? {...styles.main, ...styles.main800} : styles.main, [width]);
-    const headerStyle = useMemo(() => !isScreenS ? {...styles.header, ...styles.header800} : styles.header, [width]);
-    const errorStyle = useMemo(() => !isScreenS ? {...styles.error, ...styles.error800} : styles.error, [width]);
-    const refreshButtonStyle = useMemo(() => !isScreenS ? {...styles.refreshButton, ...styles.refreshButton800} : styles.refreshButton, [width]);
+    const mainStyle = useMemo(() => !isScreenS ? [ styles.main, styles.main800] : styles.main, [width]);
+    const headerStyle = useMemo(() => !isScreenS ? [ styles.header, styles.header800] : styles.header, [width]);
+    const errorStyle = useMemo(() => !isScreenS ? [ styles.error, styles.error800] : styles.error, [width]);
+    const refreshButtonStyle = useMemo(() => !isScreenS ? [ styles.refreshButton, styles.refreshButton800] : styles.refreshButton, [width]);
 
     const rightHeaderPartStyle = useMemo(() => {
-        return (!isScreenS ? {...styles.rightHeaderPart, ...styles.rightHeaderPart800}
-            : (!isScreenL ? {...styles.rightHeaderPart, ...styles.rightHeaderPart1200} : styles.rightHeaderPart))
+        return (!isScreenS ? [ styles.rightHeaderPart, styles.rightHeaderPart800]
+            : (!isScreenL ? [ styles.rightHeaderPart, styles.rightHeaderPart1200] : styles.rightHeaderPart))
     }, [width]);
 
     const leftHeaderPartStyle = useMemo(() => {
-        return (!isScreenS ? {...styles.leftHeaderPart, ...styles.leftHeaderPart800}
-            : (!isScreenL ? ({...styles.leftHeaderPart, ...styles.leftHeaderPart1200}) : (styles.leftHeaderPart)))
+        return (!isScreenS ? [ styles.leftHeaderPart, styles.leftHeaderPart800]
+            : (!isScreenL ? ([ styles.leftHeaderPart, styles.leftHeaderPart1200]) : (styles.leftHeaderPart)))
     }, [width]);
 
     // отфильтрованные матчи

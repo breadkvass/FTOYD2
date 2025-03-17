@@ -13,12 +13,12 @@ const TeamPlayer: FC<TeamPlayerProps> = ({teamPlayer, matchStatus}) => {
     const { width, isScreenXS, isScreenS, isScreenL, isScreenXl } = useResize();
 
     const containerStyle = useMemo(() => {
-        return ( !isScreenS ? {...styles.container, ...styles.container800} : 
-            (!isScreenXl ? {...styles.container, ...styles.container1800} : styles.container))
+        return ( !isScreenS ? [ styles.container,  styles.container800 ] : 
+            (!isScreenXl ? [ styles.container,  styles.container1800 ] : styles.container))
     }, [width]);
-    const nameStyle = useMemo(() => !isScreenL ? {...styles.value, ...styles.value1200} : styles.value, [width]);
+    const nameStyle = useMemo(() => !isScreenL ? [ styles.value,  styles.value1200 ] : styles.value, [width]);
     const imgStyle = useMemo(() => !isScreenL ? styles.img1200 : styles.img, [width]);
-    const rowStyle = useMemo(() => !isScreenXS ?  {...styles.row, ...styles.row450} : styles.row, [width]);
+    const rowStyle = useMemo(() => !isScreenXS ?  [ styles.row,  styles.row450 ] : styles.row, [width]);
 
     return (
         <View style={containerStyle}>
