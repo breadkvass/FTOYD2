@@ -1,9 +1,9 @@
-import { FlatListIndicator } from "@fanchenbao/react-native-scroll-indicator"
-import { FC, useMemo } from "react";
-import { View, FlatList } from "react-native";
-import { Match } from "src/utils/types";
-import { useResize } from "src/hooks/useResize";
-import MatchCard from "../matchCard/matchCard";
+import { FlatListIndicator } from '@fanchenbao/react-native-scroll-indicator'
+import { FC, useMemo } from 'react';
+import { View, FlatList } from 'react-native';
+import { Match } from 'src/utils/types';
+import { useResize } from 'src/hooks/useResize';
+import MatchCard from '../matchCard/matchCard';
 
 type FlatListMatchesProps = {
     data: Match[]

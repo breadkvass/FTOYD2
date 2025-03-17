@@ -1,5 +1,5 @@
-import { createContext, FC, ReactElement, useEffect, useRef, useState } from "react";
-import { Match } from "./types";
+import { createContext, FC, ReactElement, useEffect, useRef, useState } from 'react';
+import { Match } from './types';
 
 type MatchesState = {
     matches: Match[];
@@ -47,10 +47,10 @@ const MatchesContextProvider: FC<MatchesContextProviderProps> = ({ children }) =
       const [, forceRender] = useState({});
     
       useEffect(() => {
-        ws.current = new WebSocket("wss://app.ftoyd.com/fronttemp-service/ws");
+        ws.current = new WebSocket('wss://app.ftoyd.com/fronttemp-service/ws');
     
         ws.current.onopen = () => {
-          console.log("Connected to WebSocket");
+          console.log('Connected to WebSocket');
         };
     
         ws.current.onmessage = (event) => {
@@ -60,13 +60,13 @@ const MatchesContextProvider: FC<MatchesContextProviderProps> = ({ children }) =
             setMatches(matchesRef.current);
             forceRender({});
           } catch (error) {
-            console.error("Error parsing WebSocket message:", error);
+            console.error('Error parsing WebSocket message:', error);
             setIsError(true);
           }
         };
     
         ws.current.onclose = () => {
-          console.log("WebSocket closed");
+          console.log('WebSocket closed');
         };
     
         return () => {

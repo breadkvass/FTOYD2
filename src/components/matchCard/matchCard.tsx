@@ -1,12 +1,12 @@
-import { FC, useEffect, useMemo, useRef, memo, useState } from "react";
-import { View, Text, StyleSheet, Animated, TouchableOpacity } from "react-native";
-import { Match } from "../../utils/types";
-import { animateScore } from "src/utils/utils";
-import { useResize } from "src/hooks/useResize";
-import Command from "./command/command";
-import TeamCard from "../teamCard/teamCard";
-import ChevronDownIcon from "../icons/chevronDownIcon";
-import ChevronUpIcon from "../icons/chevronUpIcon";
+import { FC, useEffect, useMemo, useRef, memo, useState } from 'react';
+import { View, Text, StyleSheet, Animated, TouchableOpacity } from 'react-native';
+import { Match } from '../../utils/types';
+import { animateScore } from 'src/utils/utils';
+import { useResize } from 'src/hooks/useResize';
+import Command from './command/command';
+import TeamCard from '../teamCard/teamCard';
+import ChevronDownIcon from '../icons/chevronDownIcon';
+import ChevronUpIcon from '../icons/chevronUpIcon';
 
 type MatchCardProps = {
   match: Match;
@@ -32,23 +32,23 @@ const MatchCard: FC<MatchCardProps> = ({ match }) => {
 
   const statusTypeStyle = useMemo(() => {
     switch (match.status) {
-      case "Finished":
+      case 'Finished':
         return styles.finished;
-      case "Ongoing":
+      case 'Ongoing':
         return styles.ongoing;
-      case "Scheduled":
+      case 'Scheduled':
         return styles.scheduled;
       default:
         return {};
     }
   }, [match.status]);
 
-  const scoreStyle = useMemo(() => !isScreenM ? { ...styles.score, ...styles.score1000 } : styles.score, [width]);
-  const statusStyle = useMemo(() => !isScreenM ? { ...statusTypeStyle, ...styles.status1000 } : statusTypeStyle, [width]);
-  const rowStyle = useMemo(() => !isScreenM ? { ...styles.row, ...styles.row1000 } : styles.row, [width]);
-  const cardStyle = useMemo(() => !isScreenM ? { ...styles.card, ...styles.card1000 } : styles.card, [width]);
-  const teamsStyle = useMemo(() => !isScreenM ? { ...styles.teams, ...styles.teams1000 } : styles.teams, [width]);
-  const fullStyle = useMemo(() => !isScreenM ? { ...styles.full, ...styles.full1000 } : styles.full, [width]);
+  const scoreStyle = useMemo(() => !isScreenM ? [ styles.score, styles.score1000 ] : styles.score, [width]);
+  const statusStyle = useMemo(() => !isScreenM ? [ statusTypeStyle, styles.status1000 ] : statusTypeStyle, [width]);
+  const rowStyle = useMemo(() => !isScreenM ? [ styles.row, styles.row1000 ] : styles.row, [width]);
+  const cardStyle = useMemo(() => !isScreenM ? [ styles.card, styles.card1000 ] : styles.card, [width]);
+  const teamsStyle = useMemo(() => !isScreenM ? [ styles.teams, styles.teams1000 ] : styles.teams, [width]);
+  const fullStyle = useMemo(() => !isScreenM ? [ styles.full, styles.full1000 ] : styles.full, [width]);
   const scoreGap = !isScreenM ? 12 : 18;
 
   const Chevron = () => (
@@ -65,14 +65,14 @@ const MatchCard: FC<MatchCardProps> = ({ match }) => {
 
   const statusText = useMemo(() => {
     switch (match.status) {
-      case "Finished":
-        return "Finished";
-      case "Ongoing":
-        return "Live";
-      case "Scheduled":
-        return "Match preparing";
+      case 'Finished':
+        return 'Finished';
+      case 'Ongoing':
+        return 'Live';
+      case 'Scheduled':
+        return 'Match preparing';
       default:
-        return "";
+        return '';
     }
   }, [match.status]);
 

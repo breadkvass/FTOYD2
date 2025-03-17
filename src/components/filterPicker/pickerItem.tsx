@@ -1,5 +1,5 @@
-import { View, Text, StyleSheet } from "react-native";
-import { FilterItem } from "src/utils/types";
+import { View, Text, StyleSheet } from 'react-native';
+import { FilterItem } from 'src/utils/types';
 
 export const renderPickerItem = (
     item: FilterItem,

@@ -1,7 +1,7 @@
-import { FC, useEffect, useMemo, useRef, useState } from "react"; 
-import { View, StyleSheet, Text, Animated } from "react-native";
-import { useResize } from "src/hooks/useResize";
-import { animateScore } from "src/utils/utils";
+import { FC, useEffect, useMemo, useRef, useState } from 'react'; 
+import { View, StyleSheet, Text, Animated } from 'react-native';
+import { useResize } from 'src/hooks/useResize';
+import { animateScore } from 'src/utils/utils';
 
 type StatsProps = {
     type: string;

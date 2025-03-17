@@ -135,7 +135,7 @@ const styles = StyleSheet.create({
     leftHeaderPart800: {
         flexDirection: 'column',
         gap: 14,
-        width: "100%"
+        width: '100%'
     },
     rightHeaderPart: {
         display: 'flex',
@@ -156,7 +156,7 @@ const styles = StyleSheet.create({
     },
     rightHeaderPart800: {
         flexDirection: 'column-reverse',
-        width: "100%",
+        width: '100%',
         position: 'relative',
         marginLeft: 0,
     },

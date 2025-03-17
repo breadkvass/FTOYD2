@@ -1,9 +1,9 @@
-import { FC, memo, useMemo } from "react";
+import { FC, memo, useMemo } from 'react';
 import { View, StyleSheet, FlatList } from 'react-native';
-import { useResize } from "src/hooks/useResize";
-import { MatchStatus, Team } from "src/utils/types";
-import TeamPlayer from "./teamPlayer/teamPlayer";
-import Stats from "./stats/stats";
+import { useResize } from 'src/hooks/useResize';
+import { MatchStatus, Team } from 'src/utils/types';
+import TeamPlayer from './teamPlayer/teamPlayer';
+import Stats from './stats/stats';
 
 type TeamCardProps = {
     team: Team;

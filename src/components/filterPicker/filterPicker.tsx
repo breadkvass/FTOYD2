@@ -1,10 +1,10 @@
-import { StyleSheet } from "react-native";
-import { FC, useState } from "react";
-import { renderPickerButton } from "./pickerButton";
-import { renderPickerItem } from "./pickerItem";
-import { FilterItem } from "src/utils/types";
-import SelectDropdown from "react-native-select-dropdown";
-import { useResize } from "src/hooks/useResize";
+import { StyleSheet } from 'react-native';
+import { FC, useState } from 'react';
+import { renderPickerButton } from './pickerButton';
+import { renderPickerItem } from './pickerItem';
+import { FilterItem } from 'src/utils/types';
+import SelectDropdown from 'react-native-select-dropdown';
+import { useResize } from 'src/hooks/useResize';
 
 type FilterPickerProps = {
     setFilterHandler: (selectedItem: any) => any

@@ -12,9 +12,9 @@ const checkResponse = (res: Response) => {
 export const getMatches = async () => {
     return await fetch(`${BASE_URL}/fronttemp`, {
         headers: {
-            "Content-Type": "application/json"
+            'Content-Type': 'application/json'
         },
-        method: "GET", 
+        method: 'GET', 
     })
     .then(checkResponse)
   };

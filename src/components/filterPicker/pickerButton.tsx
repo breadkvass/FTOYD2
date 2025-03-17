@@ -1,7 +1,7 @@
-import { View, Text, StyleSheet } from "react-native";
-import { useMemo } from "react";
-import ArrowDownIcon from "../icons/arrowDownIcon";
-import ArrowUpIcon from "../icons/arrowUpIcon";
+import { View, Text, StyleSheet } from 'react-native';
+import { useMemo } from 'react';
+import ArrowDownIcon from '../icons/arrowDownIcon';
+import ArrowUpIcon from '../icons/arrowUpIcon';
 
 export const renderPickerButton = (
     selectedItem: any,

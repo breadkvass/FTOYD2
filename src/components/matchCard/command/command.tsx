@@ -1,6 +1,6 @@
-import { FC, memo, useMemo } from "react";
+import { FC, memo, useMemo } from 'react';
 import { View, StyleSheet, Text, Image } from 'react-native';
-import { useResize } from "src/hooks/useResize";
+import { useResize } from 'src/hooks/useResize';
 
 type CommandProps = {
     commandName: string;

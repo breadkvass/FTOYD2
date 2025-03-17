@@ -1,8 +1,8 @@
-import { FC, memo, useMemo } from "react";
+import { FC, memo, useMemo } from 'react';
 import { View, StyleSheet, Text, Image } from 'react-native';
-import { useResize } from "src/hooks/useResize";
-import { MatchStatus, Player } from "src/utils/types";
-import Stats from "../stats/stats";
+import { useResize } from 'src/hooks/useResize';
+import { MatchStatus, Player } from 'src/utils/types';
+import Stats from '../stats/stats';
 
 type TeamPlayerProps = {
     teamPlayer: Player;
@@ -26,7 +26,7 @@ const TeamPlayer: FC<TeamPlayerProps> = ({teamPlayer, matchStatus}) => {
                 <Image style={imgStyle} source={require('../../../assets/images/avatar-icon.png')}/>
                 <Text style={nameStyle}>{teamPlayer.username}</Text>
             </View>
-            <Stats type="Убийств:" value={matchStatus !== 'Scheduled' ? teamPlayer.kills.toString() : '0'} />
+            <Stats type='Убийств:' value={matchStatus !== 'Scheduled' ? teamPlayer.kills.toString() : '0'} />
         </View>
     )
 }
