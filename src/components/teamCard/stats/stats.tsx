@@ -1,35 +1,38 @@
-import { FC, memo, useEffect, useMemo, useRef } from "react";
-import { View, StyleSheet, Text, Animated } from 'react-native';
+import { FC, useEffect, useMemo, useRef, useState } from "react"; 
+import { View, StyleSheet, Text, Animated } from "react-native";
 import { useResize } from "src/hooks/useResize";
 import { animateScore } from "src/utils/utils";
 
 type StatsProps = {
-    type: string,
-    value: string,
-    flexNum?: number,
-    sign?: string
-}
+    type: string;
+    value: string;
+    flexNum?: number;
+    sign?: string;
+};
 
-const Stats: FC<StatsProps> = ({type, value, flexNum, sign}) => {
+const Stats: FC<StatsProps> = ({ type, value, flexNum, sign }) => {
     const { width, isScreenXS, isScreenL } = useResize();
+    const [displayedValue, setDisplayedValue] = useState(Number(value));
     const fadeAnim = useRef(new Animated.Value(1)).current;
-    const flex = {flex: flexNum};
 
-    useEffect(() => animateScore(fadeAnim), [value]);
+    useEffect(() => {
+        animateScore(fadeAnim, setDisplayedValue, Number(value));
+    }, [value]);
 
-    const textStyle = useMemo(() => !isScreenL ?  {...styles.text, ...styles.text1200} : styles.text, [width]);
-    const valueStyle = useMemo(() => !isScreenL ? {...styles.value, ...styles.value1200} : styles.value, [width]);
-    const rowStyle = useMemo(() => !isScreenXS ? {...styles.row, ...styles.row450} : styles.row, [width]);
+    const flex = { flex: flexNum };
+    const textStyle = useMemo(() => !isScreenL ? { ...styles.text, ...styles.text1200 } : styles.text, [width]);
+    const valueStyle = useMemo(() => !isScreenL ? { ...styles.value, ...styles.value1200 } : styles.value, [width]);
+    const rowStyle = useMemo(() => !isScreenXS ? { ...styles.row, ...styles.row450 } : styles.row, [width]);
 
     return (
-        <View style={{...rowStyle, ...flex}}>
+        <View style={{ ...rowStyle, ...flex }}>
             <Text style={textStyle}>{type}</Text>
             <Animated.Text style={[valueStyle, { opacity: fadeAnim }]}>
-                {Number(value) > 0 ? sign : ''}{value}
+                {Number(displayedValue) > 0 ? sign : ''}{displayedValue}
             </Animated.Text>
         </View>
-    )
-}
+    );
+};
 
 export default Stats;
 

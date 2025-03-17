@@ -3,7 +3,7 @@ import { View, StyleSheet, Text, TouchableOpacity, Animated } from 'react-native
 import { getMatches } from 'src/utils/api';
 import { MatchesContext } from 'src/utils/matchesContext';
 import { MatchStatus } from 'src/utils/types';
-import { animate } from 'src/utils/utils';
+import { setCircleAnimation } from 'src/utils/utils';
 import { useResize } from 'src/hooks/useResize';
 import AlertIcon from '../icons/alertIcon';
 import Skeleton from '../skeleton/skeleton';
@@ -21,7 +21,7 @@ const MainTable = () => {
     const spinValue = useRef(new Animated.Value(0)).current;
 
     useEffect(() => {
-        animate(isLoading, spinValue);
+        setCircleAnimation(isLoading, spinValue);
     }, [isLoading]);
 
     useEffect(() => getAllMatches(), [])
