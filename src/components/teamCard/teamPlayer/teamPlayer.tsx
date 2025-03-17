@@ -10,18 +10,19 @@ type TeamPlayerProps = {
 }
 
 const TeamPlayer: FC<TeamPlayerProps> = ({teamPlayer, matchStatus}) => {
-    const { width, isScreenS, isScreenL, isScreenXl } = useResize();
+    const { width, isScreenXS, isScreenS, isScreenL, isScreenXl } = useResize();
 
     const containerStyle = useMemo(() => {
         return ( !isScreenS ? {...styles.container, ...styles.container800} : 
             (!isScreenXl ? {...styles.container, ...styles.container1800} : styles.container))
     }, [width]);
     const nameStyle = useMemo(() => !isScreenL ? {...styles.value, ...styles.value1200} : styles.value, [width]);
-    const imgStyle = useMemo(() => !isScreenL ? styles.img1200 : styles.img, [width])
+    const imgStyle = useMemo(() => !isScreenL ? styles.img1200 : styles.img, [width]);
+    const rowStyle = useMemo(() => !isScreenXS ?  {...styles.row, ...styles.row450} : styles.row, [width]);
 
     return (
         <View style={containerStyle}>
-            <View style={styles.row}>
+            <View style={rowStyle}>
                 <Image style={imgStyle} source={require('../../../assets/images/avatar-icon.png')}/>
                 <Text style={nameStyle}>{teamPlayer.username}</Text>
             </View>
@@ -29,8 +30,6 @@ const TeamPlayer: FC<TeamPlayerProps> = ({teamPlayer, matchStatus}) => {
         </View>
     )
 }
-
-// export default TeamPlayer;
 
 export default memo(TeamPlayer, (prevProps, nextProps) => {
     return prevProps.teamPlayer === nextProps.teamPlayer;
@@ -61,6 +60,10 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         flexDirection: 'row',
         gap: 8,
+    },
+    row450: {
+        flexDirection: 'column',
+        marginBottom: 4
     },
     img: {
         width: 36,

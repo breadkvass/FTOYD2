@@ -11,19 +11,18 @@ type StatsProps = {
 }
 
 const Stats: FC<StatsProps> = ({type, value, flexNum, sign}) => {
-    const { width, isScreenL } = useResize();
+    const { width, isScreenXS, isScreenL } = useResize();
     const fadeAnim = useRef(new Animated.Value(1)).current;
     const flex = {flex: flexNum};
 
     useEffect(() => animateScore(fadeAnim), [value]);
 
-
-
-    const textStyle = useMemo(() => !isScreenL ?  {...styles.text, ...styles.text_1200} : styles.text, [width]);
-    const valueStyle = useMemo(() => !isScreenL ? {...styles.value, ...styles.value_1200} : styles.value, [width]);
+    const textStyle = useMemo(() => !isScreenL ?  {...styles.text, ...styles.text1200} : styles.text, [width]);
+    const valueStyle = useMemo(() => !isScreenL ? {...styles.value, ...styles.value1200} : styles.value, [width]);
+    const rowStyle = useMemo(() => !isScreenXS ? {...styles.row, ...styles.row450} : styles.row, [width]);
 
     return (
-        <View style={{...styles.row, ...flex}}>
+        <View style={{...rowStyle, ...flex}}>
             <Text style={textStyle}>{type}</Text>
             <Animated.Text style={[valueStyle, { opacity: fadeAnim }]}>
                 {Number(value) > 0 ? sign : ''}{value}
@@ -42,21 +41,29 @@ const styles = StyleSheet.create({
         gap: 8,
         justifyContent: 'center'
     },
+    row450: {
+        flexDirection: 'column',
+        gap: 4,
+        alignItems: 'center',
+        justifyContent: 'center'
+    },
     value: {
         color: 'white',
         fontFamily: 'InterSemiBold',
-        fontSize: 16
+        fontSize: 16,
+        textAlign: 'center'
     },
-    value_1200: {
+    value1200: {
         fontSize: 14
     },
     text: {
         color: '#FAFAFA',
         fontFamily: 'InterMed',
         fontSize: 14,
-        opacity: 0.4
+        opacity: 0.4,
+        textAlign: 'center'
     },
-    text_1200: {
+    text1200: {
         fontSize: 12
     }
 });

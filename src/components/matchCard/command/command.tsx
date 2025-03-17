@@ -8,13 +8,16 @@ type CommandProps = {
 }
 
 const Command: FC<CommandProps> = ({commandName, isReverse}) => {
-    const { width, isScreenM } = useResize();
+    const { width, isScreenXS, isScreenM } = useResize();
 
     const imgStyle = useMemo(() => !isScreenM ? styles.img1000 : styles.img, [width]);
     const nameStyle = useMemo(() => !isScreenM ? {...styles.name, ...styles.name1000} : styles.name, [width]);
-    const commandStyle = useMemo(() => !isScreenM ? {...styles.command, ...styles.command1000} : styles.command, [width]);
+    const commandStyle = useMemo(() => { 
+        return !isScreenXS ? {...styles.command, ...styles.command450} :
+        (!isScreenM ? {...styles.command, ...styles.command1000} : styles.command)
+    }, [width]);
 
-    const style = !isReverse ? commandStyle : {...commandStyle, ...styles.reverse};
+    const style = isReverse ? {...commandStyle, ...(!isScreenXS ? styles.reverse450 : styles.reverse)} : commandStyle;
 
     return (
         <View style={style}>
@@ -47,6 +50,9 @@ const styles = StyleSheet.create({
         gap: 14,
         height: 55
     },
+    command450: {
+        flexDirection: 'column'
+    },
     command1000: {
         gap: 6
     },
@@ -55,6 +61,12 @@ const styles = StyleSheet.create({
         justifyContent: 'flex-end',
         marginRight: 0,
         marginLeft: 'auto'
+    },
+    reverse450: {
+        flexDirection: 'column',
+        alignItems: 'center',
+        marginLeft: 'auto',
+        marginRight: 0,
     },
     name: {
         fontSize: 16,

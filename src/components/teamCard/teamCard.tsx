@@ -11,10 +11,11 @@ type TeamCardProps = {
 }
 
 const TeamCard: FC<TeamCardProps> = ({team, matchStatus}) => {
-    const { width, isScreenS, isScreenM } = useResize();
+    const { width, isScreenXS, isScreenS, isScreenM } = useResize();
 
     const infoStyle = useMemo(() => !isScreenM ? styles.info1000 : styles.info, [width]);
     const dividerStyle = useMemo(() => !isScreenS ? styles.divider800 : styles.divider, [width]);
+    const statsStyle = useMemo(() => !isScreenXS ? {...styles.stats, ...styles.stats450} : styles.stats, [width] )
 
     const setValue = (value: number, res: string) => matchStatus !== 'Scheduled' ? value.toString() : res;
     
@@ -30,7 +31,7 @@ const TeamCard: FC<TeamCardProps> = ({team, matchStatus}) => {
                 keyExtractor={(player, ind) => `${team.name}_${player.username}_${ind}`}
                 renderItem={(player) => <TeamPlayer teamPlayer={player.item} matchStatus={matchStatus} />}
             />
-            <View style={styles.stats}>
+            <View style={statsStyle}>
                 <Stats type='Points:' value={setValue(team.points, '0')} flexNum={1} sign={team.points > 0 ? '+' : ''} />
                 <Divider />
                 <Stats type='Место:' value={setValue(team.place, '?')} flexNum={1} />
@@ -63,6 +64,10 @@ const styles = StyleSheet.create({
         paddingVertical: 14,
         backgroundColor: '#101318',
         borderRadius: 4
+    },
+    stats450: {
+        paddingHorizontal: 12,
+        alignItems: 'flex-start'
     },
     divider: {
         width: 1,

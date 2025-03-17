@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { SCREEN_S, SCREEN_M, SCREEN_L, SCREEN_XL } from '../constants/breakpoints';
+import { SCREEN_XS, SCREEN_S, SCREEN_M, SCREEN_L, SCREEN_XL } from '../constants/breakpoints';
 
 export const useResize = () => {
   const [width, setWidth] = useState<number>(0);
@@ -21,6 +21,7 @@ export const useResize = () => {
   return {
     width,
     height,
+    isScreenXS: width >= SCREEN_XS,
     isScreenS: width >= SCREEN_S,
     isScreenM: width >= SCREEN_M,
     isScreenL: width >= SCREEN_L,
