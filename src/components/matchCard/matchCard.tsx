@@ -126,7 +126,8 @@ const styles = StyleSheet.create({
   full1000: {
     padding: 8,
     flexDirection: 'column',
-    alignItems: 'center'
+    alignItems: 'center',
+    gap: 16
   },
   row: {
     display: 'flex',
