@@ -46,7 +46,7 @@ const App = () => {
           scrollEnabled={!isScreenS ? true : false}
           style={{flex: 1, backgroundColor: '#06080C'}}
         >
-      <View style={{flex: 1}} onLayout={onLayoutRootView}>
+      <View style={{flex: 1, backgroundColor: '#06080C'}} onLayout={onLayoutRootView}>
         <MainTable />
       </View>
       </ScrollView>
