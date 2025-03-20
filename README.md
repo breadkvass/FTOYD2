@@ -1,4 +1,4 @@
-# Тестовое задание для компании FTOYD, часть 2
+# PET-проект Match Traker
 
 Выполнено с помощью React Native и TypeScript
 
@@ -13,4 +13,4 @@
 
 ## Размещено
 
-https://ftoyd2.sulimova.ru/
+https://match-tracker.sulimova.ru/
