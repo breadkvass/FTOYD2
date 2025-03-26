@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "competency matrix",
-    "slug": "matrix",
+    "name": "Expo Router Typescript",
+    "slug": "ftoyd-pt2",
     "scheme": "app",
     "version": "1.0.0",
     "orientation": "portrait",

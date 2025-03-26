@@ -1,5 +1,5 @@
 {
-  "name": "matrix",
+  "name": "ftoyd2",
   "scripts": {
     "build:web": "npx expo export --platform web -c --output-dir dist",
     "dev": "npm run start",
